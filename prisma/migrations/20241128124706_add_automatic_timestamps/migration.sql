@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "collection" ALTER COLUMN "createdAt" SET DEFAULT CURRENT_TIMESTAMP;
