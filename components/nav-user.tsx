@@ -28,7 +28,8 @@ export default function NavUser() {
         await authClient.signOut({
             fetchOptions: {
               onSuccess: () => {
-                router.push("/"); // redirect to login page
+                console.log("Signed out");
+                router.push("/login"); // redirect to login page
               },
             },
           });
