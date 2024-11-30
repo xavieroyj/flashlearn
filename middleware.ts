@@ -3,23 +3,24 @@ import type { Session } from "better-auth/types";
 import { NextResponse, type NextRequest } from "next/server";
  
 export default async function middleware(request: NextRequest) {
-	const { data: session } = await betterFetch<Session>(
-		"/api/auth/get-session",
-		{
-			baseURL: request.nextUrl.origin,
-			headers: {
-				//get the cookie from the request
-				cookie: request.headers.get("cookie") || "",
-			},
-		},
-	);
+    // Get the absolute URL for the current request
+    const baseUrl = request.nextUrl.origin;
+    
+    const { data: session } = await betterFetch<Session>(
+        `${baseUrl}/api/auth/get-session`,
+        {
+            headers: {
+                cookie: request.headers.get("cookie") || "",
+            },
+        },
+    );
  
-	if (!session) {
-		return NextResponse.redirect(new URL("/login", request.url));
-	}
-	return NextResponse.next();
+    if (!session) {
+        return NextResponse.redirect(new URL("/login", request.url));
+    }
+    return NextResponse.next();
 }
 
 export const config = {
-	matcher: ["/dashboard/:path*"],
+    matcher: ["/dashboard/:path*"],
 };

@@ -25,14 +25,19 @@ export default function NavUser() {
     }
 
     const handleSignOut = async () => {
-        await authClient.signOut({
-            fetchOptions: {
-              onSuccess: () => {
-                console.log("Signed out");
-                router.push("/login"); // redirect to login page
-              },
-            },
-          });
+        try {
+            await authClient.signOut({
+                fetchOptions: {
+                    onSuccess: () => {
+                        console.log("Signed out");
+                        // Force a hard navigation to ensure middleware catches it
+                        window.location.href = "/login";
+                    },
+                },
+            });
+        } catch (error) {
+            console.error("Failed to sign out:", error);
+        }
     };
     
     return (
