@@ -42,7 +42,7 @@ export default function Register() {
 				return;
 			}
 
-			router.push("/login");
+			router.push("/dashboard");
 		} catch (err) {
 			setError("An unexpected error occurred");
 		} finally {

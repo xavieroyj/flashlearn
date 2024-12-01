@@ -25,8 +25,6 @@ const items = [
 	}
 ];
 
-
-
 export async function AppSidebar() {
 	const session = await auth.api.getSession({
 		headers: await headers()
