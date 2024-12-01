@@ -14,6 +14,8 @@ import { Book, Home } from "lucide-react"
 import Link from "next/link";
 import CreateQuizDialog from "@/app/dashboard/components/CreateQuizDialog";
 import NavUser from "./nav-user";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 const items = [
 	{
@@ -23,7 +25,14 @@ const items = [
 	}
 ];
 
-export function AppSidebar() {
+
+
+export async function AppSidebar() {
+	const session = await auth.api.getSession({
+		headers: await headers()
+	})
+	const user = session!.user
+
 	return (
 		<Sidebar>
 			<SidebarHeader>
@@ -67,7 +76,7 @@ export function AppSidebar() {
 			</SidebarContent>
 
 			<SidebarFooter>
-				<NavUser />
+				<NavUser user={user} />
 			</SidebarFooter>
 		</Sidebar>
 	)
