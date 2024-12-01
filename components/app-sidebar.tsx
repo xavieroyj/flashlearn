@@ -23,7 +23,7 @@ const items = [
 	}
 ];
 
-export async function AppSidebar() {
+export function AppSidebar() {
 	return (
 		<Sidebar>
 			<SidebarHeader>
@@ -67,9 +67,7 @@ export async function AppSidebar() {
 			</SidebarContent>
 
 			<SidebarFooter>
-				<SidebarMenuButton asChild>
-					<NavUser />
-				</SidebarMenuButton>
+				<NavUser />
 			</SidebarFooter>
 		</Sidebar>
 	)
