@@ -7,11 +7,20 @@ import { ChevronsUpDown, Sparkles, BadgeCheck, CreditCard, Bell, LogOut } from "
 import { SidebarMenu, SidebarMenuItem, SidebarMenuButton, useSidebar } from "./ui/sidebar"
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 
 export default function NavUser() {
     const { isMobile } = useSidebar()
     const router = useRouter()
-    const { data: session } = authClient.useSession()
+    const [session, setSession] = useState<any>(null)
+
+    useEffect(() => {
+        authClient.getSession()
+            .then(({ data }) => {
+                setSession(data)
+            })
+            .catch(console.error)
+    }, [])
 
     if (!session) return null
 

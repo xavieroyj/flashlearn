@@ -119,43 +119,46 @@ export default function CreateQuizDialog() {
         );
     };
 
-    const handleCreateCollection = async () => {
-        try {
-            const collection = await createCollection(newCollection.name, newCollection.description);
-            setCollections(prev => [collection, ...prev]);
-            setSelectedCollection(collection.id);
-            setIsCreatingCollection(false);
-            setNewCollection({ name: "", description: "" });
-        } catch (error) {
-            toast.error("Failed to create collection");
-        }
+    const handleCreateCollection = () => {
+        createCollection(newCollection.name, newCollection.description)
+            .then((collection) => {
+                setCollections(prev => [collection, ...prev]);
+                setSelectedCollection(collection.id);
+                setIsCreatingCollection(false);
+                setNewCollection({ name: "", description: "" });
+            })
+            .catch(() => {
+                toast.error("Failed to create collection");
+            });
     };
 
-    const handleAddToCollection = async () => {
+    const handleAddToCollection = () => {
         if (!selectedCollection) return;
 
         setIsSubmitting(true);
-        try {
-            await addQuizzesToCollection(
-                selectedCollection,
-                selectedQuestions.map(i => questions[i])
-            );
-            toast.success("Questions added to collection");
-            
-            // Reset the dialog state
-            clearPDF();
-            setSelectedCollection(null);
-            setSelectedQuestions([]);
-            setIsCreatingCollection(false);
-            setNewCollection({ name: "", description: "" });
-            
-            // Close the dialog
-            setOpen(false);
-        } catch (error) {
-            toast.error("Failed to add questions to collection");
-        } finally {
-            setIsSubmitting(false);
-        }
+        addQuizzesToCollection(
+            selectedCollection,
+            selectedQuestions.map(i => questions[i])
+        )
+            .then(() => {
+                toast.success("Questions added to collection");
+                
+                // Reset the dialog state
+                clearPDF();
+                setSelectedCollection(null);
+                setSelectedQuestions([]);
+                setIsCreatingCollection(false);
+                setNewCollection({ name: "", description: "" });
+                
+                // Close the dialog
+                setOpen(false);
+            })
+            .catch(() => {
+                toast.error("Failed to add questions to collection");
+            })
+            .finally(() => {
+                setIsSubmitting(false);
+            });
     };
 
     if (questions.length > 0) {

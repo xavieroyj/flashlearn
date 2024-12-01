@@ -28,21 +28,23 @@ export default function CollectionCard({ collection, onPinToggle }: CollectionCa
     const [isPending, setIsPending] = useState(false);
     const router = useRouter();
 
-    const handlePinClick = async (e: React.MouseEvent) => {
+    const handlePinClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
         
         if (isPending) return;
         
         setIsPending(true);
-        try {
-            await toggleCollectionPin(collection.id);
-            onPinToggle(collection.id);
-        } catch (error) {
-            toast.error("Failed to update pin status");
-        } finally {
-            setIsPending(false);
-        }
+        toggleCollectionPin(collection.id)
+            .then(() => {
+                onPinToggle(collection.id);
+            })
+            .catch(() => {
+                toast.error("Failed to update pin status");
+            })
+            .finally(() => {
+                setIsPending(false);
+            });
     };
 
     const handleClick = () => {

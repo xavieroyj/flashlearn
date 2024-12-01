@@ -25,27 +25,27 @@ export default function LoginForm() {
 	  },
 	});
   
-	const handleSubmit = async (data: LoginFormData) => {
+	const handleSubmit = (data: LoginFormData) => {
 	  setError("");
 	  setLoading(true);
   
-	  try {
-		const { error } = await authClient.signIn.email({
-		  email: data.email,
-		  password: data.password,
+	  authClient.signIn.email({
+		email: data.email,
+		password: data.password,
+	  })
+		.then(({ error }) => {
+		  if (error) {
+			setError(error.message || "");
+			return;
+		  }
+		  router.push("/dashboard");
+		})
+		.catch(() => {
+		  setError("An unexpected error occurred");
+		})
+		.finally(() => {
+		  setLoading(false);
 		});
-  
-		if (error) {
-		  setError(error.message || "");
-		  return;
-		}
-  
-		router.push("/dashboard");
-	  } catch (err) {
-		setError("An unexpected error occurred");
-	  } finally {
-		setLoading(false);
-	  }
 	};
 
 
