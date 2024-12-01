@@ -1,5 +1,3 @@
-"use client"
-
 import {
 	Sidebar,
 	SidebarContent,
@@ -12,11 +10,10 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Book, Command, Home } from "lucide-react"
+import { Book, Home } from "lucide-react"
 import Link from "next/link";
 import CreateQuizDialog from "@/app/dashboard/components/CreateQuizDialog";
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import NavUser from "./nav-user";
 
 const items = [
 	{
@@ -26,15 +23,7 @@ const items = [
 	}
 ];
 
-export function AppSidebar() {
-	const router = useRouter();
-
-	const logout = async () => {
-		await authClient.signOut();
-		router.push("/login");
-	}
-
-
+export async function AppSidebar() {
 	return (
 		<Sidebar>
 			<SidebarHeader>
@@ -78,8 +67,8 @@ export function AppSidebar() {
 			</SidebarContent>
 
 			<SidebarFooter>
-				<SidebarMenuButton onClick={logout}>
-					Logout
+				<SidebarMenuButton asChild>
+					<NavUser />
 				</SidebarMenuButton>
 			</SidebarFooter>
 		</Sidebar>
