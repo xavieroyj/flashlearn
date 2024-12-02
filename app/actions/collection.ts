@@ -151,3 +151,81 @@ export async function deleteCollection(id: number) {
 
     revalidatePath('/dashboard');
 }
+
+export async function deleteQuiz(quizId: number) {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    // Verify quiz belongs to user's collection
+    const quiz = await prisma.quiz.findFirst({
+        where: {
+            id: quizId,
+            collection: {
+                userId: session.user.id
+            }
+        },
+        include: {
+            collection: true
+        }
+    });
+
+    if (!quiz) {
+        throw new Error("Quiz not found or access denied");
+    }
+
+    await prisma.quiz.delete({
+        where: {
+            id: quizId
+        }
+    });
+
+    // Revalidate both dashboard and collection pages
+    revalidatePath('/dashboard');
+    revalidatePath(`/dashboard/collection/${quiz.collectionId}`);
+}
+
+export async function editQuiz(
+    quizId: number,
+    data: { question: string; options: string[]; answer: string }
+) {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    // Verify quiz belongs to user's collection
+    const quiz = await prisma.quiz.findFirst({
+        where: {
+            id: quizId,
+            collection: {
+                userId: session.user.id
+            }
+        },
+        include: {
+            collection: true
+        }
+    });
+
+    if (!quiz) {
+        throw new Error("Quiz not found or access denied");
+    }
+
+    await prisma.quiz.update({
+        where: {
+            id: quizId
+        },
+        data
+    });
+
+    // Revalidate both dashboard and collection pages
+    revalidatePath('/dashboard');
+    revalidatePath(`/dashboard/collection/${quiz.collectionId}`);
+}
