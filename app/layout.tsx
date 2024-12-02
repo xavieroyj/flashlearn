@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className={GeistSans.className}>
       <body>
         <ThemeProvider attribute="class" enableSystem forcedTheme="dark">
-          <Toaster position="top-center" richColors />
+          <Toaster position="bottom-right" richColors />
           {children}
         </ThemeProvider>
       </body>

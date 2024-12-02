@@ -8,6 +8,8 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Question } from "@/lib/schemas";
 import { useState } from "react";
 import { editQuiz } from "@/app/actions/collection";
@@ -53,8 +55,8 @@ export function EditQuizModal({ quiz, open, onOpenChange, onSuccess }: EditQuizM
                     <DialogTitle>Edit Quiz</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="text-sm font-medium">Question</label>
+                    <div className="space-y-2">
+                        <Label>Question</Label>
                         <Input
                             value={question}
                             onChange={(e) => setQuestion(e.target.value)}
@@ -62,10 +64,8 @@ export function EditQuizModal({ quiz, open, onOpenChange, onSuccess }: EditQuizM
                         />
                     </div>
                     {options.map((option, index) => (
-                        <div key={index}>
-                            <label className="text-sm font-medium">
-                                Option {String.fromCharCode(65 + index)}
-                            </label>
+                        <div key={index} className="space-y-2">
+                            <Label>Option {String.fromCharCode(65 + index)}</Label>
                             <Input
                                 value={option}
                                 onChange={(e) => {
@@ -77,20 +77,23 @@ export function EditQuizModal({ quiz, open, onOpenChange, onSuccess }: EditQuizM
                             />
                         </div>
                     ))}
-                    <div>
-                        <label className="text-sm font-medium">Correct Answer</label>
-                        <select
+                    <div className="space-y-2">
+                        <Label>Correct Answer</Label>
+                        <Select
                             value={answer}
-                            onChange={(e) => setAnswer(e.target.value as "A" | "B" | "C" | "D")}
-                            className="w-full p-2 border rounded-md"
-                            required
+                            onValueChange={(value: "A" | "B" | "C" | "D") => setAnswer(value)}
                         >
-                            {["A", "B", "C", "D"].map((letter) => (
-                                <option key={letter} value={letter}>
-                                    Option {letter}
-                                </option>
-                            ))}
-                        </select>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Select correct answer" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {["A", "B", "C", "D"].map((letter) => (
+                                    <SelectItem key={letter} value={letter}>
+                                        Option {letter}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
                     <div className="flex justify-end space-x-2">
                         <Button

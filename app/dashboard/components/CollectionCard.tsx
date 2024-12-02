@@ -49,6 +49,7 @@ export default function CollectionCard({ collection, onPinToggle }: CollectionCa
         toggleCollectionPin(collection.id)
             .then(() => {
                 onPinToggle(collection.id);
+                toast.success(collection.isPinned ? "Collection unpinned" : "Collection pinned");
             })
             .catch(() => {
                 toast.error("Failed to update pin status");

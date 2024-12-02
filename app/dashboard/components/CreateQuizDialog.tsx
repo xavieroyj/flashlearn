@@ -165,7 +165,7 @@ export default function CreateQuizDialog() {
         return (
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button variant="outline" className="w-full">Create new flash card</Button>
+                    <Button variant="outline" className="w-full">Generate new flash cards</Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[800px] overflow-hidden flex flex-col h-[90vh]">
                     <DialogHeader>
@@ -299,11 +299,11 @@ export default function CreateQuizDialog() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" className="w-full">Create new flash card</Button>
+                <Button variant="outline" className="w-full">Generate new flash cards</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[600px]">
                 <DialogHeader>
-                    <DialogTitle>Create New Quiz</DialogTitle>
+                    <DialogTitle>Create New Flash Cards</DialogTitle>
                 </DialogHeader>
                 <div
                     className="relative"
