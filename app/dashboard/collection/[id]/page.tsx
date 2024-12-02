@@ -1,21 +1,21 @@
 import { getCollection } from "@/app/actions/collection";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
-import { format } from "date-fns";
 import QuizSection from "./quiz-section";
 import { Question } from "@/lib/schemas";
 
-type Params = Promise<{ id: string }>;
-
-interface Props {
-    params: Params;
+// Next.js App Router page props typing
+interface PageProps {
+    params: {
+        id: string;
+    };
 }
 
-export default async function CollectionPage(props: Props) {
-    const params = await props.params;
-    const { id } = params;
-    const parsedId = parseInt(id);
+export default async function CollectionPage({ params }: PageProps) {
+    const { id } = await params;
 
+    const parsedId = parseInt(id);
+    
     if (isNaN(parsedId)) {
         notFound();
     }

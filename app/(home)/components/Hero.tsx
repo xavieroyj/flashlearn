@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Brain, Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -10,7 +11,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-br from-background to-muted/50" />
             
             {/* Content */}
-            <div className="container relative z-10 flex flex-col items-center text-center space-y-8 pt-20">
+            <div className="container relative z-10 flex flex-col items-center text-center space-y-8 py-20">
                 <div className="space-y-4"
                 >
                     <div className="flex items-center justify-center space-x-2 text-primary">
@@ -53,7 +54,12 @@ export default function Hero() {
                         <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-background/5" />
                         {/* Add your app screenshot/preview here */}
                         <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/40">
-                            App Preview
+                            <Image
+                                width={1920}
+                                height={1080}
+                                src="/assets/dashboard_preview.png"
+                                alt="FlashLearn Dashboard Preview"
+                            />
                         </div>
                     </div>
                 </div>

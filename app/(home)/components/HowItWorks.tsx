@@ -23,7 +23,7 @@ const steps = [
 export default function HowItWorks() {
     return (
         <section id="how-it-works" className="py-24">
-            <div className="container mx-auto">
+            <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold mb-4">How It Works</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -33,14 +33,8 @@ export default function HowItWorks() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                     {steps.map((step, index) => (
-                        <div
-                            key={index}
-                            className="relative"
-                        >
-                            {/* Connector line */}
-                            {index < steps.length - 1 && (
-                                <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-border to-transparent -z-10" />
-                            )}
+                        <div key={index} className="relative">
+
 
                             <div className="flex flex-col items-center text-center">
                                 <div className="mb-6 p-4 rounded-full bg-primary/10">

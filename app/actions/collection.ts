@@ -130,3 +130,24 @@ export async function toggleCollectionPin(collectionId: number) {
         data: { isPinned: !collection.isPinned }
     });
 }
+
+export async function deleteCollection(id: number) {
+    'use server';
+    
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    await prisma.collection.delete({
+        where: {
+            id,
+            userId: session.user.id
+        }
+    });
+
+    revalidatePath('/dashboard');
+}

@@ -20,7 +20,7 @@ export default function NavUser({ user }: NavUserProps) {
         authClient.signOut({
             fetchOptions: {
                 onSuccess: () => {
-                    router.push("/login")
+                    router.push("/")
                 }
             }
         })

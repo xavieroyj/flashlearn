@@ -51,16 +51,14 @@ export default function Features() {
                     </p>
                 </div>
 
-                <div
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-                >
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
                     {features.map((feature, index) => (
                         <div
                             key={index}
-                            className="relative group"
+                            className="relative group h-full"
                         >
                             <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/5 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="relative p-6 bg-background rounded-lg border shadow-sm">
+                            <div className="relative p-6 bg-background rounded-lg border shadow-sm h-full">
                                 <feature.icon className="h-10 w-10 text-primary mb-4" />
                                 <h3 className="font-semibold mb-2">{feature.title}</h3>
                                 <p className="text-muted-foreground text-sm">{feature.description}</p>
