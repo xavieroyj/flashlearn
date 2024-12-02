@@ -2,6 +2,8 @@ import { getUserCollections } from "../actions/collection";
 import { format } from "date-fns";
 import CollectionCard from "./components/CollectionCard";
 import { revalidatePath } from "next/cache";
+import { Button } from "@/components/ui/button";
+import CreateCollectionDialog from "./components/CreateCollectionDialog";
 
 export default async function Dashboard() {
     const collections = await getUserCollections();
@@ -14,6 +16,11 @@ export default async function Dashboard() {
 
     return (
         <div className="w-full h-full p-6 space-y-8">
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl font-bold">Your Collections</h1>
+                <CreateCollectionDialog />
+            </div>
+
             {pinnedCollections.length > 0 && (
                 <section>
                     <h2 className="text-xl font-semibold mb-4">Pinned 📌</h2>
