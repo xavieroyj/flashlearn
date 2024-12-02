@@ -2,9 +2,13 @@ import { getCollection } from "@/app/actions/collection";
 import { Question } from "@/lib/schemas";
 import QuizClient from "./components/quiz-client";
 
-type Params = { id: string };
-export default async function Page(props: {params: Promise<Params>}) {
-  const params = await props.params;
+type Params = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function Page({ params }: Params) {
   const { id } = params;
   
   const parsedId = parseInt(id);
