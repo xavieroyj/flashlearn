@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
-import { Pin, Trash2 } from "lucide-react";
+import { Pin, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toggleCollectionPin, deleteCollection } from "@/app/actions/collection";
 import { toast } from "sonner";
@@ -97,7 +97,7 @@ export default function CollectionCard({ collection, onPinToggle }: CollectionCa
                             )}
                             disabled={isPending}
                         >
-                            <Trash2 className="h-4 w-4 text-destructive" />
+                            <Trash className="size-4 text-destructive" />
                         </button>
                     </AlertDialogTrigger>
                     <AlertDialogContent onClick={e => e.stopPropagation()}>

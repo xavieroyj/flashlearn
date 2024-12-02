@@ -46,7 +46,11 @@ export async function AppSidebar() {
 								</div>
 							</a>
 						</SidebarMenuButton>
+					</SidebarMenuItem>
+				</SidebarMenu>
 
+				<SidebarMenu>
+					<SidebarMenuItem>
 						<CreateQuizDialog />
 					</SidebarMenuItem>
 				</SidebarMenu>

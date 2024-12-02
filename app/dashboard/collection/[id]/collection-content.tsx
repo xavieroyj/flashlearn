@@ -8,6 +8,7 @@ import { deleteQuiz } from "@/app/actions/collection";
 import { useState } from "react";
 import { toast } from "sonner";
 import QuizSection from "./quiz-section";
+import { Pencil, Trash } from "lucide-react";
 
 function QuizCard({ quiz, index, onEdit, onDelete }: { 
     quiz: Question & { id: number }; 
@@ -26,7 +27,7 @@ function QuizCard({ quiz, index, onEdit, onDelete }: {
                         onClick={onEdit}
                         className="h-8 w-8"
                     >
-                        ✏️
+                        <Pencil className="size-4" />
                     </Button>
                     <Button
                         variant="ghost"
@@ -34,7 +35,7 @@ function QuizCard({ quiz, index, onEdit, onDelete }: {
                         onClick={onDelete}
                         className="h-8 w-8 text-red-500"
                     >
-                        🗑️
+                        <Trash className="size-4" />
                     </Button>
                 </div>
             </CardHeader>
