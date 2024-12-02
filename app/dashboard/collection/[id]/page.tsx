@@ -5,15 +5,14 @@ import { notFound } from "next/navigation";
 import QuizSection from "./quiz-section";
 import { Question } from "@/lib/schemas";
 
-type CollectionPageProps = {
-    params: {
-        id: string;
-    };
-}
+type CollectionPageParams = Promise<{ 
+    id: string 
+}>
 
-async function CollectionPage({ params }: CollectionPageProps) {
-    const { id } = await params;
-    const parsedId = parseInt(id);
+async function CollectionPage(props: { params: CollectionPageParams }) {
+    const params = await props.params;
+    
+    const parsedId = parseInt(params.id);
     
     if (isNaN(parsedId)) {
         notFound();

@@ -3,17 +3,18 @@ import { Question } from "@/lib/schemas";
 import QuizClient from "./components/quiz-client";
 
 type Params = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
-export default async function Page({ params }: Params) {
+export default async function Page(props: Params) {
+  const params = await props.params;
   const { id } = params;
-  
+
   const parsedId = parseInt(id);
   const collection = await getCollection(parsedId);
-  
+
   if (!collection) {
     // Handle redirect on server side
     return null;
