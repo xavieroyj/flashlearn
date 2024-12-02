@@ -112,8 +112,8 @@ export default function CreateQuizDialog() {
     };
 
     const toggleQuestionSelection = (index: number) => {
-        setSelectedQuestions(prev => 
-            prev.includes(index) 
+        setSelectedQuestions(prev =>
+            prev.includes(index)
                 ? prev.filter(i => i !== index)
                 : [...prev, index]
         );
@@ -142,14 +142,14 @@ export default function CreateQuizDialog() {
         )
             .then(() => {
                 toast.success("Questions added to collection");
-                
+
                 // Reset the dialog state
                 clearPDF();
                 setSelectedCollection(null);
                 setSelectedQuestions([]);
                 setIsCreatingCollection(false);
                 setNewCollection({ name: "", description: "" });
-                
+
                 // Close the dialog
                 setOpen(false);
             })
@@ -179,7 +179,7 @@ export default function CreateQuizDialog() {
                             <ScrollArea className="flex-1 w-full rounded-md border min-h-0">
                                 <div className="flex flex-col space-y-4 p-4">
                                     {questions.map((question, index) => (
-                                        <Card 
+                                        <Card
                                             key={index}
                                             className={cn(
                                                 "cursor-pointer transition-all hover:border-primary",
@@ -210,7 +210,7 @@ export default function CreateQuizDialog() {
                                         <ScrollArea className="h-[150px] w-full rounded-md border">
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 p-4">
                                                 {collections.map(collection => (
-                                                    <Card 
+                                                    <Card
                                                         key={collection.id}
                                                         className={cn(
                                                             "cursor-pointer transition-all hover:border-primary",
@@ -226,7 +226,7 @@ export default function CreateQuizDialog() {
                                                         </CardContent>
                                                     </Card>
                                                 ))}
-                                                <Card 
+                                                <Card
                                                     className="cursor-pointer hover:border-primary border-dashed"
                                                     onClick={() => setIsCreatingCollection(true)}
                                                 >
@@ -242,10 +242,10 @@ export default function CreateQuizDialog() {
                                     </div>
 
                                     {isCreatingCollection && (
-                                        <div className="space-y-4">
+                                        <div className="space-y-4 px-1">
                                             <div className="space-y-2">
                                                 <Label>Collection Name</Label>
-                                                <Input 
+                                                <Input
                                                     value={newCollection.name}
                                                     onChange={e => setNewCollection(prev => ({ ...prev, name: e.target.value }))}
                                                     placeholder="Enter collection name"
@@ -253,7 +253,7 @@ export default function CreateQuizDialog() {
                                             </div>
                                             <div className="space-y-2">
                                                 <Label>Description (optional)</Label>
-                                                <Textarea 
+                                                <Textarea
                                                     value={newCollection.description}
                                                     onChange={e => setNewCollection(prev => ({ ...prev, description: e.target.value }))}
                                                     placeholder="Enter collection description"
@@ -261,7 +261,7 @@ export default function CreateQuizDialog() {
                                             </div>
                                             <div className="flex justify-end space-x-2">
                                                 <Button variant="outline" onClick={() => setIsCreatingCollection(false)}>Cancel</Button>
-                                                <Button 
+                                                <Button
                                                     onClick={handleCreateCollection}
                                                     disabled={!newCollection.name}
                                                 >
@@ -275,7 +275,7 @@ export default function CreateQuizDialog() {
 
                             <div className="flex justify-end space-x-2 flex-shrink-0">
                                 <Button variant="outline" onClick={clearPDF}>Cancel</Button>
-                                <Button 
+                                <Button
                                     disabled={selectedQuestions.length === 0 || !selectedCollection || isSubmitting}
                                     onClick={handleAddToCollection}
                                 >
