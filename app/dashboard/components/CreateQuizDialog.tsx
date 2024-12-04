@@ -73,11 +73,11 @@ export default function CreateQuizDialog() {
 
         const selectedFiles = Array.from(e.target.files || []);
         const validFiles = selectedFiles.filter(
-            (file) => file.type === "application/pdf" && file.size <= 5 * 1024 * 1024,
+            (file) => file.type === "application/pdf" && file.size <= 20 * 1024 * 1024,
         );
 
         if (validFiles.length !== selectedFiles.length) {
-            toast.error("Only PDF files under 5MB are allowed.");
+            toast.error("Only PDF files under 20 MB are allowed.");
         }
 
         setFiles(validFiles);

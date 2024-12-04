@@ -36,6 +36,7 @@ model Collection {
     user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
     Tag    Tag[]
     Quiz   Quiz[]
+    QuizHistory QuizHistory[]
 
     @@map("collection")
 }
@@ -60,6 +61,7 @@ model User {
     Session       Session[]
     Account       Account[]
     Collection    Collection[]
+    QuizHistory   QuizHistory[]
 
     @@unique([email])
     @@map("user")
@@ -108,4 +110,20 @@ model Verification {
     updatedAt  DateTime?
 
     @@map("verification")
+}
+
+model QuizHistory {
+    id             Int      @id @default(autoincrement())
+    score          Int
+    totalQuestions Int
+    answers        Json     // Store array of { questionId: number, question: string, options: string[], correctAnswer: string, userAnswer: string, isCorrect: boolean }
+    createdAt      DateTime @default(now())
+    
+    userId         String
+    user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    collectionId   Int
+    collection     Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+    @@map("quiz_history")
 }

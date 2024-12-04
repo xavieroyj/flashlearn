@@ -2,7 +2,7 @@ import { questionSchema, questionsSchema } from "@/lib/schemas";
 import { google } from "@ai-sdk/google";
 import { streamObject } from "ai";
 
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 export async function POST(req: Request) {
   const { files } = await req.json();
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
         content: `
           You are a teacher.Your job is to take a document, and create a multiple choice test (with as many unique questions as possible) based on the content of the document.
           You are based in truth and every question should be based on the content of the document.
-          Questions generated should ALWAYS be in the same language as the document.
+          Questions generated should ALWAYS be in the same language as the bulk of the content of the document.
           Each option should be roughly equal in length.
         `,
       },

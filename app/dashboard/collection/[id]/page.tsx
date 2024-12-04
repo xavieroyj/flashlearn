@@ -1,7 +1,7 @@
 import { getCollection } from "@/app/actions/collection";
 import { notFound } from "next/navigation";
 import { Question } from "@/lib/schemas";
-import { CollectionContent } from "./collection-content";
+import CollectionContent from "./collection-content";
 
 type CollectionPageParams = Promise<{ 
     id: string 

@@ -18,6 +18,7 @@ type QuizProps = {
   questions: Question[];
   clearPDF: () => void;
   title: string;
+  onComplete?: (score: number, answers: Record<number, string>) => Promise<void>;
 };
 
 const QuestionCard: React.FC<{
@@ -76,6 +77,7 @@ export default function Quiz({
   questions,
   clearPDF,
   title = "Quiz",
+  onComplete,
 }: QuizProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(
@@ -115,11 +117,26 @@ export default function Quiz({
   };
 
   const handleSubmit = () => {
-    setIsSubmitted(true);
-    const correctAnswers = questions.reduce((acc, question, index) => {
-      return acc + (question.answer === answers[index] ? 1 : 0);
-    }, 0);
-    setScore(correctAnswers);
+    if (!isSubmitted) {
+      const correctAnswers = answers.reduce((acc, answer, index) => {
+        if (answer === questions[index].answer) {
+          return acc + 1;
+        }
+        return acc;
+      }, 0);
+
+      setScore(correctAnswers);
+      setIsSubmitted(true);
+
+      // Create answers record for history
+      const answersRecord = answers.reduce((acc, answer, index) => {
+        acc[index] = answer;
+        return acc;
+      }, {} as Record<number, string>);
+
+      // Call onComplete callback if provided
+      onComplete?.(correctAnswers, answersRecord);
+    }
   };
 
   const handleReset = () => {
@@ -204,7 +221,7 @@ export default function Quiz({
                         onClick={clearPDF}
                         className="bg-primary hover:bg-primary/90 w-full"
                       >
-                        <FileText className="mr-2 h-4 w-4" /> Try Another PDF
+                        <FileText className="mr-2 h-4 w-4" /> Return to Collection
                       </Button>
                     </div>
                   </div>

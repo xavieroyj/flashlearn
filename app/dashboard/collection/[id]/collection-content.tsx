@@ -5,9 +5,10 @@ import { Question } from "@/lib/schemas";
 import { EditQuizModal } from "./edit-quiz-modal";
 import { Button } from "@/components/ui/button";
 import { deleteQuiz, addQuizzesToCollection } from "@/app/actions/collection";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import QuizSection from "./quiz-section";
+import QuizHistory from './quiz-history';
 import { Pencil, Trash, Plus } from "lucide-react";
 import {
     AlertDialog,
@@ -107,7 +108,7 @@ function QuizCard({ quiz, index, onEdit, onDelete }: {
     );
 }
 
-export function CollectionContent({ collection, quizzes }: { 
+export default function CollectionContent({ collection, quizzes }: { 
     collection: any; 
     quizzes: (Question & { id: number })[];
 }) {
@@ -124,6 +125,27 @@ export function CollectionContent({ collection, quizzes }: {
         answer: "A"
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [quizHistory, setQuizHistory] = useState<any[]>([]);
+    const [selectedQuiz, setSelectedQuiz] = useState<(Question & { id: number }) | null>(null);
+
+    useEffect(() => {
+        async function fetchHistory() {
+            try {
+                const response = await fetch(`/api/collections/${collection.id}/history`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch quiz history');
+                }
+                const data = await response.json();
+                const historyArray = Array.isArray(data) ? data : [];
+                setQuizHistory(historyArray);
+            } catch (error) {
+                console.error('Failed to fetch quiz history:', error);
+                toast.error('Failed to load quiz history');
+                setQuizHistory([]);
+            }
+        }
+        fetchHistory();
+    }, [collection.id]);
 
     const handleDelete = async (quizId: number) => {
         try {
@@ -165,7 +187,7 @@ export function CollectionContent({ collection, quizzes }: {
     };
 
     return (
-        <div className="w-full h-full p-6 space-y-6">
+        <div className="space-y-8">
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold">{collection.name}</h1>
@@ -191,6 +213,8 @@ export function CollectionContent({ collection, quizzes }: {
                     collectionName={collection.name}
                 />
             )}
+
+            <QuizHistory history={quizHistory} />
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {quizzes.map((quiz, index) => (
