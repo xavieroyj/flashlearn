@@ -142,7 +142,7 @@ export default function CollectionCard({ collection, onPinToggle }: CollectionCa
                 <div className="space-y-2 text-sm text-muted-foreground">
                     <p>Created: {format(new Date(collection.createdAt), 'PPP')}</p>
                     <p>Last Updated: {format(new Date(collection.updatedAt), 'PPP')}</p>
-                    <p>Number of Quizzes: {collection.Quiz.length}</p>
+                    <p>Number of Quizzes: {collection.Quiz?.length ?? 0}</p>
                 </div>
             </CardContent>
         </Card>

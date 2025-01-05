@@ -1,69 +1,83 @@
+import * as motion from "motion/react-client";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ArrowRight, Brain, Sparkles } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Hero() {
-    return (
-        <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-            {/* Background gradient */}
-            <div className="absolute inset-0 bg-gradient-to-br from-background to-muted/50" />
-            
-            {/* Content */}
-            <div className="container relative z-10 flex flex-col items-center text-center space-y-8 py-20">
-                <div className="space-y-4"
-                >
-                    <div className="flex items-center justify-center space-x-2 text-primary">
-                        <Brain className="h-6 w-6" />
-                        <span className="text-lg font-medium">AI-Powered Learning</span>
-                    </div>
-                    
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-                        Learn Smarter with{" "}
-                        <span className="relative">
-                            FlashLearn
-                            <Sparkles className="absolute -top-6 -right-6 h-5 w-5 text-primary animate-pulse" />
-                        </span>
-                    </h1>
-                    
-                    <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                        Create, study, and master any subject with AI-generated flashcards. Perfect for students, professionals, and lifelong learners.
-                    </p>
-                </div>
+  return (
+    <div className="relative overflow-hidden bg-gradient-to-b from-[#f0fdf9] to-[#e8f7ff]">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-[#50e3c2] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
+        <div className="absolute top-40 right-10 w-72 h-72 bg-[#6366f1] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-[#f471b5] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000" />
+      </div>
 
-                <div
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
-                >
-                    <Button size="lg" asChild>
-                        <Link href="/register" className="group">
-                            Get Started
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                    </Button>
-                    <Button size="lg" variant="outline" asChild>
-                        <Link href="#features">Learn More</Link>
-                    </Button>
-                </div>
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-20">
+        <div className="text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#0f172a] to-[#334155]">
+              Transform Your Learning with
+              <span className="block text-[#50e3c2]">AI-Powered Flashcards</span>
+            </h1>
+          </motion.div>
 
-                {/* Preview Image */}
-                <div
-                    className="relative w-full max-w-5xl mx-auto mt-8"
-                >
-                    <div className="relative aspect-[16/9] overflow-hidden rounded-lg border bg-background/40 shadow-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-background/5" />
-                        {/* Add your app screenshot/preview here */}
-                        <div className="absolute inset-0 flex items-center justify-center text-muted-foreground/40">
-                            <Image
-                                width={1920}
-                                height={1080}
-                                src="/assets/dashboard_preview.png"
-                                alt="FlashLearn Dashboard Preview"
-                            />
-                        </div>
-                    </div>
-                </div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="max-w-2xl mx-auto text-lg sm:text-xl text-slate-600 font-inter"
+          >
+            Upload your documents and let AI create perfect flashcards for you. Study smarter, 
+            collaborate with friends, and master any subject with FlashLearn.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <Button
+              size="lg"
+              className="bg-[#50e3c2] hover:bg-[#3bc5a7] text-white font-semibold rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200"
+            >
+              Try for free today!
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-full px-8 py-6 text-lg border-2"
+            >
+              Watch how it works
+            </Button>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="pt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 max-w-2xl mx-auto"
+          >
+            <div className="p-4 rounded-2xl bg-white backdrop-blur-sm">
+              <p className="text-2xl font-bold text-[#50e3c2]">10k+</p>
+              <p className="text-sm text-slate-600">Active Users</p>
             </div>
+            <div className="p-4 rounded-2xl bg-white">
+              <p className="text-2xl font-bold text-[#50e3c2]">1M+</p>
+              <p className="text-sm text-slate-600">Flashcards Created</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white sm:col-span-1 col-span-2">
+              <p className="text-2xl font-bold text-[#50e3c2]">4.9/5</p>
+              <p className="text-sm text-slate-600">User Rating</p>
+            </div>
+          </motion.div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

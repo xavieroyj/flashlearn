@@ -15,8 +15,10 @@ import {
 import { Book, Home, History } from "lucide-react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import CreateQuizDialog from "@/app/dashboard/components/CreateQuizDialog";
+import CreateQuizDialog from "@/app/dashboard/collection/components/CreateQuizDialog";
 import NavUser from "./nav-user";
+import { title } from "process";
+import Image from "next/image";
 
 const items = [
 	{
@@ -25,10 +27,15 @@ const items = [
 		icon: Home
 	},
 	{
+		title: "Collection",
+		path: "/dashboard/collection",
+		icon: Book
+	},
+	{
 		title: "History",
 		path: "/dashboard/history",
 		icon: History
-	}
+	},
 ];
 
 interface AppSidebarProps {
@@ -46,7 +53,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
 						<SidebarMenuButton size="lg" asChild>
 							<a href="#">
 								<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-									<Book className="size-4" />
+									<Image src="/icon.png" alt="FlashLearn" className="rounded-lg" width={32} height={32} />
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
 									<span className="truncate font-semibold">FlashLearn</span>
@@ -70,7 +77,7 @@ export function AppSidebar({ user }: AppSidebarProps) {
 						<SidebarMenu>
 							{items.map((item) => {
 								const isActive = item.path === "/dashboard" 
-									? pathname === "/dashboard" || pathname.startsWith("/dashboard/collection/")
+									? pathname === "/dashboard"
 									: pathname.startsWith(item.path);
 
 								return (

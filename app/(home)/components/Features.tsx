@@ -1,72 +1,96 @@
-import React from 'react';
-import { motion } from "framer-motion";
-import { FileText, Brain, Users, Sparkles } from "lucide-react";
+import * as motion from "motion/react-client";
+import { LightbulbIcon, UsersIcon, FolderIcon, SparklesIcon, RocketIcon, LockIcon } from "lucide-react";
 
 const features = [
-    {
-        icon: FileText,
-        title: "PDF to Flashcards",
-        description: "Upload any PDF and instantly generate smart flashcards with our AI technology."
-    },
-    {
-        icon: Brain,
-        title: "AI-Powered Learning",
-        description: "Our AI analyzes your content to create effective learning materials tailored to you."
-    },
-    {
-        icon: Users,
-        title: "Collaborative Learning",
-        description: "Share collections and study together with friends or classmates."
-    },
-    {
-        icon: Sparkles,
-        title: "Smart Review",
-        description: "Adaptive learning system that focuses on what you need to review most."
-    }
+  {
+    title: "AI-Powered Generation",
+    description: "Upload your documents and let our AI create perfect flashcards in seconds. Support for multiple file formats including PDF, DOCX, and more.",
+    icon: SparklesIcon,
+    color: "bg-[#50e3c2]",
+  },
+  {
+    title: "Collaborative Learning",
+    description: "Share your flashcard collections with friends and study together. Perfect for group study sessions and exam preparation.",
+    icon: UsersIcon,
+    color: "bg-[#6366f1]",
+  },
+  {
+    title: "Smart Organization",
+    description: "Create collections to group related flashcards together. Keep your study materials organized and easily accessible.",
+    icon: FolderIcon,
+    color: "bg-[#f471b5]",
+  },
+  {
+    title: "Manual Creation",
+    description: "Create your own flashcards manually with our intuitive editor. Add images, format text, and customize to your needs.",
+    icon: LightbulbIcon,
+    color: "bg-[#50e3c2]",
+  },
+  {
+    title: "Progress Tracking",
+    description: "Track your learning progress with detailed statistics and insights. Know exactly what you've mastered and what needs review.",
+    icon: RocketIcon,
+    color: "bg-[#6366f1]",
+  },
+  {
+    title: "Secure & Private",
+    description: "Your data is encrypted and securely stored. Control who can access your flashcards with granular sharing permissions.",
+    icon: LockIcon,
+    color: "bg-[#f471b5]",
+  },
 ];
 
-const container = {
-    hidden: { opacity: 0 },
-    show: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.2
-        }
-    }
-};
-
-const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
-};
-
 export default function Features() {
-    return (
-        <section id="features" className="py-24 bg-muted/30">
-            <div className="container mx-auto">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl font-bold mb-4">Why Choose FlashLearn?</h2>
-                    <p className="text-muted-foreground max-w-2xl mx-auto">
-                        Our platform combines the power of AI with proven learning techniques to help you master any subject efficiently.
-                    </p>
-                </div>
+  return (
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl sm:text-4xl font-outfit font-bold text-slate-900 mb-4"
+          >
+            Everything you need to learn effectively
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-slate-600 font-inter"
+          >
+            Powerful features to transform your learning experience and help you achieve your goals faster.
+          </motion.p>
+        </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
-                    {features.map((feature, index) => (
-                        <div
-                            key={index}
-                            className="relative group h-full"
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-primary/5 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                            <div className="relative p-6 bg-background rounded-lg border shadow-sm h-full">
-                                <feature.icon className="h-10 w-10 text-primary mb-4" />
-                                <h3 className="font-semibold mb-2">{feature.title}</h3>
-                                <p className="text-muted-foreground text-sm">{feature.description}</p>
-                            </div>
-                        </div>
-                    ))}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative group"
+            >
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white to-slate-50 shadow-lg transform transition-transform group-hover:-translate-y-2" />
+              <div className="relative p-8 space-y-4">
+                <div className={`${feature.color} w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg`}>
+                  <feature.icon className="w-6 h-6 text-white" />
                 </div>
-            </div>
-        </section>
-    );
+                <h3 className="text-xl font-outfit font-semibold text-slate-900">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-600 font-inter">
+                  {feature.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }

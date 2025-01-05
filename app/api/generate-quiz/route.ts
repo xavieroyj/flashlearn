@@ -9,17 +9,27 @@ export async function POST(req: Request) {
   const firstFile = files[0].data;
 
   const result = await streamObject({
-    model: google("gemini-1.5-pro-latest"),
+    model: google("gemini-2.0-flash-exp"),
     messages: [
       {
         role: "system",
         content: `
-          You are a teacher. Your job is to take a document, and create a multiple choice test (AS MANY UNIQUE QUESTIONS AS POSSIBLE) based on the content of the document.
-          Do NOT make up questions, they should be based on the content of the document.
-          Do NOT come up with questions that such as "What is the title of the document?" OR "What is the author's name?", "What is the title in page 2?", 
-          Questions generated should ALWAYS be in the same language as the bulk of the content of the document. 
-          For example, if the document is in English, the questions should be in English. Likewise, if the document is in Spanish, the questions and answersshould be in Spanish.
-          Each option should be roughly equal in length.
+          You are an AI assistant tasked with creating a multiple choice test based on the content of a given document. Your goal is to generate as many unique questions as possible while adhering to specific guidelines.
+          Follow these instructions to create the multiple choice test:
+          1. Carefully read and analyze the content of the document.
+          2. Create multiple choice questions based solely on the information presented in the document. Do not invent or assume any information not explicitly stated in the text.
+          3. Adhere to these rules when creating questions:
+            a. Do not create questions about meta-information such as "What is the title of the document?" or "What is the author's name?"
+            b. Avoid questions about formatting or structural elements like "What is the title on page 2?"
+            c. Ensure that all questions are substantive and relate to the main content of the document.
+          4. For each question:
+            a. Write a clear, concise question stem.
+            b. Provide four answer choices labeled A, B, C, and D.
+            c. Ensure that only one answer choice is correct.
+            d. Make all answer choices roughly equal in length.
+            e. Avoid using "All of the above" or "None of the above" as answer choices.
+          5. Use the same language for the questions and answer choices as the primary language of the document. For example, if the document is in English, create the questions and answers in English. If it's in Spanish, use Spanish for the questions and answers.
+          6. Create as many unique questions as possible based on the document's content. Aim to cover different aspects and details from the text.
         `,
       },
       {
