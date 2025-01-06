@@ -50,9 +50,9 @@ export default async function Navbar() {
             ) : (
               <>
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   asChild
-                  className="text-white/70 hover:text-white hover:bg-white/10 rounded-full"
+                  className="rounded-full px-6 border-2 border-white/25"
                 >
                   <Link href="/login">Sign in</Link>
                 </Button>
