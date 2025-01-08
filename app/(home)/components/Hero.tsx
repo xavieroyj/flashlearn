@@ -1,83 +1,90 @@
 import * as motion from "motion/react-client";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import { Button } from '@/components/ui/button'
+import Image from 'next/image'
 
 export default function Hero() {
-  return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-[#f0fdf9] to-[#e8f7ff]">
-      {/* Decorative elements */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-[#50e3c2] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob" />
-        <div className="absolute top-40 right-10 w-72 h-72 bg-[#6366f1] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-[#f471b5] rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000" />
-      </div>
+	return (
+		<div className="relative overflow-hidden bg-gradient-to-b to-primary/5 from-primary/20 min-h-screen">
+			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="pt-20 pb-16 lg:pt-40 lg:pb-32">
+					<div className="grid lg:grid-cols-2 gap-12 items-center">
+						{/* Left Column - Text Content */}
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.5 }}
+							className="space-y-8"
+						>
+							{/* Main Heading */}
+							<div className="space-y-2">
+								<h1 className="text-4xl lg:text-6xl font-medium tracking-tight text-foreground">
+									Master Any Subject
+									<br />
+									<span className="text-muted-foreground/80">with</span>
+									<br />
+									<span className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+										AI-Powered Flashcards
+									</span>
+								</h1>
+							</div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 sm:pt-24 sm:pb-20">
-        <div className="text-center space-y-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#0f172a] to-[#334155]">
-              Transform Your Learning with
-              <span className="block text-[#50e3c2]">AI-Powered Flashcards</span>
-            </h1>
-          </motion.div>
+							{/* Description */}
+							<p className="text-lg text-slate-400 max-w-xl">
+								Transform your learning experience with our intelligent flashcard system.
+								Upload any material and let AI create perfect study cards for you.
+							</p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="max-w-2xl mx-auto text-lg sm:text-xl text-slate-600 font-inter"
-          >
-            Upload your documents and let AI create perfect flashcards for you. Study smarter, 
-            collaborate with friends, and master any subject with FlashLearn.
-          </motion.p>
+							{/* CTA Buttons */}
+							<div className="flex flex-wrap gap-4">
+								<Button
+									size="lg"
+									className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
+								>
+									Get Started Free
+								</Button>
+								<Button
+									size="lg"
+									variant="outline"
+									className="border-muted-foreground/30 text-muted-foreground hover:bg-muted-foreground/10"
+								>
+									Watch Demo
+								</Button>
+							</div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <Button
-              size="lg"
-              className="bg-[#50e3c2] hover:bg-[#3bc5a7] text-white font-semibold rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-200"
-            >
-              Try for free today!
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full px-8 py-6 text-lg border-2"
-            >
-              Watch how it works
-            </Button>
-          </motion.div>
+							{/* Stats */}
+							<div className="flex gap-8">
+								<div>
+									<div className="text-2xl font-semibold text-foreground">4.9/5</div>
+									<div className="text-sm text-muted-foreground">Satisfaction Rating</div>
+								</div>
+								<div>
+									<div className="text-2xl font-semibold text-foreground">50K+</div>
+									<div className="text-sm text-muted-foreground">Active Users</div>
+								</div>
+							</div>
+						</motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="pt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 max-w-2xl mx-auto"
-          >
-            <div className="p-4 rounded-2xl bg-white backdrop-blur-sm">
-              <p className="text-2xl font-bold text-[#50e3c2]">10k+</p>
-              <p className="text-sm text-slate-600">Active Users</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-white">
-              <p className="text-2xl font-bold text-[#50e3c2]">1M+</p>
-              <p className="text-sm text-slate-600">Flashcards Created</p>
-            </div>
-            <div className="p-4 rounded-2xl bg-white sm:col-span-1 col-span-2">
-              <p className="text-2xl font-bold text-[#50e3c2]">4.9/5</p>
-              <p className="text-sm text-slate-600">User Rating</p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  );
+						{/* Right Column - Image */}
+						<motion.div
+							initial={{ opacity: 0, scale: 0.95 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.5, delay: 0.2 }}
+							className="relative"
+						>
+							<div className="relative rounded-2xl overflow-hidden">
+								<Image
+									src="https://images.unsplash.com/photo-1471107191679-f26174d2d41e"
+									alt="Study materials and notebook"
+									width={800}
+									height={600}
+									className="w-full h-auto object-cover"
+									priority
+								/>
+							</div>
+						</motion.div>
+					</div>
+				</div>
+			</div>
+		</div>
+	)
 }
