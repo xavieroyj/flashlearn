@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Remove llms documentation
 /llms_documentation
+
+# Remove cursor rules
+.cursorrules
