@@ -5,12 +5,11 @@ import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { LoginFormData, loginSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { Loader2, AlertCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import { AlertCircle } from "lucide-react";
 
 export default function LoginForm() {
 	const router = useRouter();
@@ -51,39 +50,41 @@ export default function LoginForm() {
 	return (
 		<form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
 			{error && (
-				<div
-						className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-inter"
-				>
-					{error}
+				<div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm font-inter">
+					<div className="flex items-center gap-2">
+						<AlertCircle className="w-4 h-4" />
+						{error}
+					</div>
 				</div>
 			)}
 
 			<div className="space-y-2">
 				<Label
 					htmlFor="email"
-					className="text-sm font-medium font-inter text-white/70"
+					className="text-sm font-medium font-inter text-muted-foreground/70"
 				>
 					Email address
 				</Label>
-				<div className="relative">
+				<div className="relative group">
 					<Input
 						id="email"
 						type="email"
 						autoComplete="email"
 						placeholder="name@example.com"
-						className="h-12 bg-white/5 border-white/10 text-white font-inter placeholder:text-white/30 rounded-xl focus:ring-2 focus:ring-[#50e3c2]/20 focus:border-[#50e3c2]/30 transition-all"
+						className="h-12 bg-white/[0.03] border-white/10 text-foreground font-inter 
+								 placeholder:text-muted-foreground/30 rounded-xl 
+								 focus:ring-2 focus:ring-primary/20 focus:border-primary/30 
+								 transition-all group-hover:border-primary/20"
 						{...form.register("email")}
 					/>
-					<div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-						{form.formState.errors.email && (
+					{form.formState.errors.email && (
+						<div className="absolute inset-y-0 right-3 flex items-center">
 							<AlertCircle className="w-5 h-5 text-red-400" />
-						)}
-					</div>
+						</div>
+					)}
 				</div>
 				{form.formState.errors.email && (
-					<p
-						className="text-sm font-inter text-red-400"
-					>
+					<p className="text-sm font-inter text-red-400">
 						{form.formState.errors.email.message}
 					</p>
 				)}
@@ -92,28 +93,29 @@ export default function LoginForm() {
 			<div className="space-y-2">
 				<Label
 					htmlFor="password"
-					className="text-sm font-medium font-inter text-white/70"
+					className="text-sm font-medium font-inter text-muted-foreground/70"
 				>
 					Password
 				</Label>
-				<div className="relative">
+				<div className="relative group">
 					<Input
 						id="password"
 						type="password"
 						autoComplete="current-password"
-						className="h-12 bg-white/5 border-white/10 text-white font-inter placeholder:text-white/30 rounded-xl focus:ring-2 focus:ring-[#50e3c2]/20 focus:border-[#50e3c2]/30 transition-all"
+						className="h-12 bg-white/[0.03] border-white/10 text-foreground font-inter 
+								 placeholder:text-muted-foreground/30 rounded-xl 
+								 focus:ring-2 focus:ring-primary/20 focus:border-primary/30 
+								 transition-all group-hover:border-primary/20"
 						{...form.register("password")}
 					/>
-					<div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-						{form.formState.errors.password && (
+					{form.formState.errors.password && (
+						<div className="absolute inset-y-0 right-3 flex items-center">
 							<AlertCircle className="w-5 h-5 text-red-400" />
-						)}
-					</div>
+						</div>
+					)}
 				</div>
 				{form.formState.errors.password && (
-					<p
-						className="text-sm font-inter text-red-400"
-					>
+					<p className="text-sm font-inter text-red-400">
 						{form.formState.errors.password.message}
 					</p>
 				)}
@@ -122,8 +124,11 @@ export default function LoginForm() {
 			<Button
 				type="submit"
 				disabled={loading}
-				className="w-full h-12 bg-gradient-to-r from-[#50e3c2] to-[#3bc5a7] hover:brightness-110 text-black font-medium font-inter rounded-xl transition-all"
+				className="w-full h-12 bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd] 
+						 hover:brightness-110 text-primary-foreground font-medium font-inter 
+						 rounded-xl transition-all relative overflow-hidden"
 			>
+				<div className="absolute inset-0 bg-white/10 opacity-0 hover:opacity-100 transition-opacity" />
 				<span className="relative flex items-center justify-center gap-2">
 					{loading ? (
 						<>

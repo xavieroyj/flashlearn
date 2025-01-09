@@ -2,15 +2,19 @@
 
 ## Brand Colors
 - Primary: `#80e5e9` (Turquoise)
-- Background: `#001213` (Dark Teal)
-- Card Background: `#003738` (Deep Teal)
+- Background: `#000910` (Dark Navy)
+- Card Background: `#001213` (Dark Teal)
+- Accent Gradient: `from-[#80e5e9] to-[#4cc9cd]`
 
 ### Color Usage
 - **Primary Actions**: `#80e5e9` for CTAs and key interactive elements
 - **Backgrounds**: 
-  - Main: `#001213` (Dark Teal)
-  - Cards: `#003738` (Deep Teal)
+  - Main: `#000910` with noise texture
+  - Cards: `#001213` with subtle glow
   - Hover States: `#004D4E` (Lighter Teal)
+- **Gradients**:
+  - Primary: `bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd]`
+  - Glow: `bg-[#80e5e9]/10 blur-[100px]`
 
 ### Color Classes
 ```tsx
@@ -19,31 +23,33 @@ className="text-primary" // Turquoise text
 className="bg-primary" // Turquoise background
 
 // Background Elements
-className="bg-background" // Dark teal background
-className="bg-card" // Deep teal card background
+className="bg-background" // Dark navy background
+className="bg-card" // Dark teal card background
 
-// Text Colors
-className="text-foreground" // White text
-className="text-muted-foreground" // Muted text
+// Gradient Text
+className="bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd] text-transparent bg-clip-text"
+
+// Glow Effects
+className="relative before:absolute before:inset-0 before:bg-primary/20 before:blur-xl before:-z-10"
 ```
 
 ## Typography
 ### Fonts
-- Headings: `Inter` (Medium)
-- Body: `Inter` (Regular)
+- Headings: `Inter` (SemiBold - 600)
+- Body: `Inter` (Regular - 400)
 
 ### Font Sizes
 ```tsx
 // Headings
-className="text-4xl md:text-5xl lg:text-6xl" // Hero heading
-className="text-3xl md:text-4xl" // Section headings
-className="text-2xl" // Card headings
-className="text-xl" // Subsection headings
+className="text-4xl md:text-5xl lg:text-6xl font-semibold" // Hero heading
+className="text-3xl md:text-4xl font-semibold" // Section headings
+className="text-2xl font-semibold" // Card headings
+className="text-xl font-medium" // Subsection headings
 
 // Body Text
-className="text-lg" // Large body text
-className="text-base" // Regular body text
-className="text-sm" // Small text
+className="text-lg text-muted-foreground/80" // Large body text
+className="text-base text-muted-foreground/70" // Regular body text
+className="text-sm text-muted-foreground/60" // Small text
 ```
 
 ## Layout & Spacing
@@ -72,37 +78,50 @@ className="grid md:grid-cols-2 gap-8"
 
 ### Cards
 ```tsx
-className="rounded-[20px] bg-[#003738] p-8"
+// Basic Card
+className="rounded-[20px] bg-card p-8 relative overflow-hidden"
+
+// Glowing Card
+className="rounded-[20px] bg-card p-8 relative overflow-hidden before:absolute before:inset-0 before:bg-primary/5 before:blur-xl before:-z-10"
+
+// Feature Card
+className="rounded-[20px] bg-gradient-to-b from-card to-card/50 p-8 border border-white/[0.05]"
 ```
 
 ### Buttons
 ```tsx
 // Primary Button
-className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12"
+className="bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd] text-primary-foreground hover:opacity-90 rounded-full h-12 px-8 transition-all"
 
 // Secondary Button
-className="bg-[#004D4E] text-foreground hover:bg-[#004D4E]/90 rounded-full h-12"
+className="bg-[#004D4E] text-foreground hover:bg-[#004D4E]/90 rounded-full h-12 px-8"
 
 // Outline Button
-className="border border-muted-foreground/30 text-muted-foreground hover:bg-muted-foreground/10 rounded-full"
+className="border border-white/10 text-muted-foreground hover:bg-white/5 rounded-full h-12 px-8 transition-all"
+
+// Glass Button
+className="bg-white/5 backdrop-blur-lg border border-white/10 text-foreground hover:bg-white/10 rounded-full h-12 px-8"
 ```
 
 ### Navigation
 ```tsx
 // Navbar
-className="fixed top-4 left-4 right-4 bg-card/60 backdrop-blur-xl rounded-full border border-white/10"
+className="fixed top-4 left-4 right-4 bg-background/60 backdrop-blur-xl rounded-full border border-white/[0.05]"
 
 // Nav Items
-className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+className="text-sm text-muted-foreground/70 hover:text-foreground transition-colors"
 ```
 
-### Progress Bars
+### Background Effects
 ```tsx
-// Container
-className="w-full h-[2px] bg-[#004D4E]"
+// Noise Texture
+className="before:absolute before:inset-0 before:bg-noise-pattern before:opacity-[0.03] before:bg-repeat"
 
-// Progress
-className="h-full bg-primary rounded-full transition-all duration-500"
+// Gradient Overlay
+className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"
+
+// Glow Effect
+className="absolute -z-10 blur-[100px] bg-primary/10 rounded-full w-[200px] h-[200px]"
 ```
 
 ## Motion & Animations
@@ -148,11 +167,12 @@ const container = {
 
 ### Section Headers
 ```tsx
-<div className="text-center max-w-3xl mx-auto mb-16">
-  <h2 className="text-3xl md:text-4xl font-medium text-foreground mb-4">
+<div className="text-center max-w-3xl mx-auto mb-16 relative">
+  <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] bg-primary/10 blur-[100px] rounded-full" />
+  <h2 className="text-3xl md:text-4xl font-semibold bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd] text-transparent bg-clip-text mb-4">
     {title}
   </h2>
-  <p className="text-lg text-muted-foreground">
+  <p className="text-lg text-muted-foreground/80">
     {description}
   </p>
 </div>
@@ -160,14 +180,15 @@ const container = {
 
 ### Feature Cards
 ```tsx
-<div className="rounded-[20px] bg-card p-8">
+<div className="rounded-[20px] bg-gradient-to-b from-card to-card/50 p-8 border border-white/[0.05] relative overflow-hidden group">
+  <div className="absolute -z-10 opacity-0 group-hover:opacity-100 transition-opacity inset-0 bg-primary/5 blur-xl" />
   <div className="text-primary mb-4">
     {/* Icon */}
   </div>
   <h3 className="text-xl font-medium text-foreground mb-2">
     {title}
   </h3>
-  <p className="text-muted-foreground">
+  <p className="text-muted-foreground/70">
     {description}
   </p>
 </div>
@@ -175,12 +196,22 @@ const container = {
 
 ### Stats Display
 ```tsx
-<div className="text-center">
-  <div className="text-4xl font-medium text-primary mb-2">
+<div className="text-center relative">
+  <div className="absolute -z-10 inset-0 bg-primary/5 blur-xl opacity-50" />
+  <div className="text-4xl font-semibold bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd] text-transparent bg-clip-text mb-2">
     {stat}
   </div>
-  <div className="text-sm text-muted-foreground">
+  <div className="text-sm text-muted-foreground/70">
     {label}
   </div>
 </div>
+```
+
+### Image Treatment
+```tsx
+// Image Container
+className="relative rounded-[20px] overflow-hidden border border-white/[0.05]"
+
+// Image Overlay
+className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"
 ``` 

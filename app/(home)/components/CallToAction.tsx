@@ -12,7 +12,7 @@ export default function CallToAction() {
         </p>
         <Button
           size="lg"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-12"
+          className="bg-primary text-black rounded-full px-8 h-12"
         >
           Get Started Free
         </Button>

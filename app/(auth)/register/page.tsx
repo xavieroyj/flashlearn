@@ -1,149 +1,85 @@
-"use client";
-
-import { useState } from "react";
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { Loader2 } from "lucide-react";
-import { registerSchema, type RegisterFormData } from "@/lib/schemas";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
+import RegisterForm from "./components/RegisterForm";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export default function Register() {
-	const router = useRouter();
-	const [error, setError] = useState("");
-	const [loading, setLoading] = useState(false);
-
-	const form = useForm<RegisterFormData>({
-		resolver: zodResolver(registerSchema),
-		defaultValues: {
-			name: "",
-			email: "",
-			password: "",
-		},
-	});
-
-	const handleSubmit = async (data: RegisterFormData) => {
-		setError("");
-		setLoading(true);
-
-		try {
-			const { error } = await authClient.signUp.email({
-				email: data.email,
-				password: data.password,
-				name: data.name,
-			});
-
-			if (error) {
-				setError(error.message || "An unknown error occurred");
-				return;
-			}
-
-			router.push("/dashboard");
-		} catch (err) {
-			setError("An unexpected error occurred");
-		} finally {
-			setLoading(false);
-		}
-	};
-
 	return (
-		<div className="container relative h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-			<div className="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r">
-				<div className="absolute inset-0 bg-zinc-900" />
-				<div className="relative z-20 flex items-center text-lg font-medium">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						strokeWidth="2"
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						className="mr-2 h-6 w-6"
-					>
-						<path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
-					</svg>
-					FlashLearn
+		<div className="min-h-screen grid lg:grid-cols-2">
+			{/* Left Side - Branding */}
+			<div className="relative hidden lg:block">
+				<div className="absolute inset-0">
+					<Image
+						src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80"
+						alt="Collaborative study"
+						fill
+						className="object-cover"
+						priority
+					/>
+					{/* Brand gradient overlay */}
+					<div className="absolute inset-0 bg-gradient-to-br from-[#80e5e9]/60 via-[#4cc9cd]/10 to-background/40 backdrop-blur-sm" />
+					{/* Noise texture */}
+					<div className="absolute inset-0 bg-noise-pattern opacity-[0.03] bg-repeat" />
 				</div>
-				<div className="relative z-20 mt-auto">
-					<blockquote className="space-y-2">
-						<p className="text-lg">
-							&quot;FlashLearn has revolutionized the way I study. The AI-powered flashcards make learning efficient and enjoyable.&quot;
-						</p>
-						<footer className="text-sm">Sofia Davis</footer>
-					</blockquote>
+
+				<div className="relative z-10 flex flex-col justify-between h-full p-12">
+					<div className="flex items-center gap-3">
+						<div className="relative">
+							<div className="absolute -z-10 blur-[100px] bg-primary/20 rounded-full w-[64px] h-[64px]" />
+							<Image src="/icon.svg" alt="FlashLearn" width={48} height={48} />
+						</div>
+						<span className="text-xl font-outfit font-bold text-white">
+							FlashLearn
+						</span>
+					</div>
+
+					<div className="space-y-8">
+						<blockquote className="text-3xl font-outfit text-white leading-relaxed relative">
+							<div className="absolute -z-10 blur-[100px] bg-primary/10 rounded-full w-[300px] h-[100px]" />
+							{"FlashLearn has revolutionized the way I study. The AI-powered flashcards make learning efficient and enjoyable."}
+						</blockquote>
+						<div className="flex items-center gap-4">
+							<div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/[0.05]" />
+							<div className="text-white">
+								<p className="font-medium font-outfit">Sofia Davis</p>
+								<p className="text-sm font-inter text-white/80">Computer Science Student</p>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div className="lg:p-8">
-				<div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-					<Card>
-						<CardHeader className="space-y-1">
-							<CardTitle className="text-2xl font-bold">Create an account</CardTitle>
-							<CardDescription>
-								Enter your information below to create your account
-							</CardDescription>
-						</CardHeader>
-						<form onSubmit={form.handleSubmit(handleSubmit)}>
-							<CardContent className="grid gap-4">
-								<div className="grid gap-2">
-									<Label htmlFor="name">Name</Label>
-									<Input
-										id="name"
-										{...form.register("name")}
-										type="text"
-										placeholder="John Doe"
-									/>
-									{form.formState.errors.name && (
-										<p className="text-sm text-destructive">{form.formState.errors.name.message}</p>
-									)}
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="email">Email</Label>
-									<Input
-										id="email"
-										{...form.register("email")}
-										type="email"
-										autoComplete="email"
-										placeholder="test@example.com"
-									/>
-									{form.formState.errors.email && (
-										<p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
-									)}
-								</div>
-								<div className="grid gap-2">
-									<Label htmlFor="password">Password</Label>
-									<Input
-										id="password"
-										{...form.register("password")}
-										type="password"
-										autoComplete="new-password"
-									/>
-									{form.formState.errors.password && (
-										<p className="text-sm text-destructive">{form.formState.errors.password.message}</p>
-									)}
-								</div>
-								{error && (
-									<div className="text-sm text-destructive">{error}</div>
-								)}
-							</CardContent>
-							<CardFooter>
-								<Button
-									className="w-full"
-									type="submit"
-									disabled={loading}
-								>
-									{loading && (
-										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-									)}
-									Sign up
-								</Button>
-							</CardFooter>
-						</form>
+
+			{/* Right Side - Register Form */}
+			<div className="flex items-center justify-center p-6 bg-background relative">
+				{/* Background glow */}
+				<div className="absolute -z-10 blur-[100px] bg-primary/5 rounded-full w-[500px] h-[500px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+				
+				<div className="w-full max-w-[420px] space-y-8">
+					<div className="text-center space-y-2">
+						<h1 className="text-3xl font-outfit font-bold bg-gradient-to-r from-[#80e5e9] to-[#4cc9cd] text-transparent bg-clip-text">
+							Create an account
+						</h1>
+						<p className="text-[15px] text-muted-foreground/70 font-inter">
+							Enter your information below to create your account
+						</p>
+					</div>
+
+					<Card className="p-6 bg-card border-white/[0.05] rounded-[20px] relative overflow-hidden">
+						<div className="absolute -z-10 inset-0 bg-gradient-to-b from-white/[0.02] to-transparent" />
+						<RegisterForm />
 					</Card>
+
+					<div className="flex items-center justify-center gap-2 text-sm font-inter">
+						<span className="text-muted-foreground/70">Already have an account?</span>
+						<Link 
+							href="/login" 
+							className="group flex items-center gap-1.5 text-primary hover:text-primary/90 transition-colors font-medium"
+						>
+							Sign in
+							<ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+						</Link>
+					</div>
 				</div>
 			</div>
 		</div>

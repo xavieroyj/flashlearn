@@ -38,7 +38,7 @@ export default function Hero() {
 							<div className="flex flex-wrap gap-4">
 								<Button
 									size="lg"
-									className="bg-primary text-primary-foreground hover:bg-primary/90 px-8"
+									className="bg-primary text-black px-8"
 								>
 									Get Started Free
 								</Button>
