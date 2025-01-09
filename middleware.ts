@@ -14,12 +14,22 @@ export default async function authMiddleware(request: NextRequest) {
 		},
 	);
  
-	if (!session) {
+	const isAuthRoute = request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/register';
+	const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard');
+
+	// If user is not logged in and trying to access protected routes
+	if (!session && isDashboardRoute) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
+
+	// If user is logged in and trying to access auth routes
+	if (session && isAuthRoute) {
+		return NextResponse.redirect(new URL("/dashboard", request.url));
+	}
+
 	return NextResponse.next();
 }
  
 export const config = {
-	matcher: ["/dashboard/:path*"],
+	matcher: ["/login", "/register", "/dashboard/:path*"],
 };

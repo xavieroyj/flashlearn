@@ -1,4 +1,5 @@
 import { getCollection } from "@/app/actions/collection";
+import { getQuizHistory } from "@/app/actions/quiz";
 import { notFound } from "next/navigation";
 import { Question } from "@/lib/schemas";
 import CollectionContent from "./collection-content";
@@ -15,7 +16,12 @@ export default async function CollectionPage({ params }: { params: CollectionPag
         notFound();
     }
 
-    const collection = await getCollection(parsedId);
+    // Fetch all data in parallel
+    const [collection, quizHistory] = await Promise.all([
+        getCollection(parsedId),
+        getQuizHistory(parsedId)
+    ]);
+
     if (!collection) {
         notFound();
     }
@@ -27,5 +33,11 @@ export default async function CollectionPage({ params }: { params: CollectionPag
         answer: quiz.answer as "A" | "B" | "C" | "D"
     }));
 
-    return <CollectionContent collection={collection} quizzes={quizzes} />;
+    return (
+        <CollectionContent 
+            collection={collection} 
+            quizzes={quizzes} 
+            initialQuizHistory={quizHistory}
+        />
+    );
 }
