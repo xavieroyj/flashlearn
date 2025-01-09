@@ -32,7 +32,7 @@ export default function Login() {
 
           <div className="space-y-8">
             <blockquote className="text-3xl font-outfit text-white leading-relaxed">
-              "FlashLearn has transformed the way I study. The AI-generated flashcards save me hours of preparation time."
+              {"FlashLearn has transformed the way I study. The AI-generated flashcards save me hours of preparation time."}
             </blockquote>
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md" />
@@ -64,7 +64,7 @@ export default function Login() {
           </Card>
 
           <div className="flex items-center justify-center gap-2 text-sm font-inter">
-            <span className="text-white/60">Don't have an account?</span>
+            <span className="text-white/60">{"Don't have an account?"}</span>
             <Link 
               href="/register" 
               className="group flex items-center gap-1.5 text-[#50e3c2] hover:text-[#3bc5a7] transition-colors font-medium"

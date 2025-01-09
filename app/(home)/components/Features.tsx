@@ -3,36 +3,42 @@ import { Brain, Upload, Users, Zap, ChartBar, Shield } from 'lucide-react'
 
 const features = [
 	{
+		id: 1,
 		title: 'AI-Powered Generation',
 		description: 'Upload your study materials and let our AI create perfect flashcards instantly',
 		icon: Brain,
 		delay: 0,
 	},
 	{
+		id: 2,
 		title: 'Quick Import',
 		description: 'Support for PDF, DOCX, and more. Just upload and start learning',
 		icon: Upload,
 		delay: 0.1,
 	},
 	{
+		id: 3,
 		title: 'Study Together',
 		description: 'Share flashcards and study with friends in real-time',
 		icon: Users,
 		delay: 0.2,
 	},
 	{
+		id: 4,
 		title: 'Smart Review',
 		description: 'AI adapts to your learning pace and suggests what to review next',
 		icon: Zap,
 		delay: 0.3,
 	},
 	{
+		id: 5,
 		title: 'Progress Tracking',
 		description: 'Visual insights into your learning journey and improvements',
 		icon: ChartBar,
 		delay: 0.4,
 	},
 	{
+		id: 6,
 		title: 'Private & Secure',
 		description: 'Your study materials are encrypted and completely private',
 		icon: Shield,
@@ -55,7 +61,7 @@ export default function Features() {
 
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 					{features.map((feature) => (
-						<div className="bg-[#003738] p-8 rounded-[20px] hover:bg-[#004D4E] transition-colors">
+						<div key={feature.id} className="bg-[#003738] p-8 rounded-[20px] hover:bg-[#004D4E] transition-colors">
 							<div className="text-primary/90 mb-6">
 								<feature.icon size={28} />
 							</div>
