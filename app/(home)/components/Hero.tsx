@@ -1,6 +1,7 @@
 import * as motion from "motion/react-client";
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
+import Stats from "./Stats";
 
 export default function Hero() {
 	return (
@@ -53,14 +54,7 @@ export default function Hero() {
 
 							{/* Stats */}
 							<div className="flex gap-8">
-								<div>
-									<div className="text-2xl font-semibold text-foreground">4.9/5</div>
-									<div className="text-sm text-muted-foreground">Satisfaction Rating</div>
-								</div>
-								<div>
-									<div className="text-2xl font-semibold text-foreground">50K+</div>
-									<div className="text-sm text-muted-foreground">Active Users</div>
-								</div>
+								<Stats />
 							</div>
 						</motion.div>
 

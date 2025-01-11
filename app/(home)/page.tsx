@@ -15,7 +15,7 @@ export default function HomePage() {
                 <Hero />
                 <Features />
                 <HowItWorks />
-                <Pricing/>
+                {/* <Pricing/> */}
                 <FAQ/>
                 <CallToAction/>
             </main>

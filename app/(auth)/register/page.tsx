@@ -34,7 +34,7 @@ export default function Register() {
 						</span>
 					</div>
 
-					<div className="space-y-8">
+					{/* <div className="space-y-8">
 						<blockquote className="text-3xl font-outfit text-white leading-relaxed relative">
 							<div className="absolute -z-10 blur-[100px] bg-primary/10 rounded-full w-[300px] h-[100px]" />
 							{"FlashLearn has revolutionized the way I study. The AI-powered flashcards make learning efficient and enjoyable."}
@@ -46,7 +46,7 @@ export default function Register() {
 								<p className="text-sm font-inter text-white/80">Computer Science Student</p>
 							</div>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</div>
 

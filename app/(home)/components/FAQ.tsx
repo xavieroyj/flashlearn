@@ -8,20 +8,12 @@ import {
 
 const faqs = [
   {
-    question: 'How does the AI generate flashcards?',
-    answer: 'Our AI analyzes your study materials using advanced natural language processing to identify key concepts, definitions, and important relationships. It then creates optimized flashcards that help you learn effectively.',
-  },
-  {
     question: 'What file formats are supported?',
-    answer: 'We support PDF, DOCX, TXT, and image files (JPG, PNG). More formats are being added regularly.',
+    answer: 'We support PDF for now, planning to support more formats in the future.',
   },
   {
     question: 'Can I share my flashcards with others?',
-    answer: 'Yes! You can share your flashcard collections with friends or study groups. Pro users can also collaborate in real-time.',
-  },
-  {
-    question: 'Is my data secure?',
-    answer: 'Absolutely. We use enterprise-grade encryption to protect your data. Your study materials and flashcards are completely private and secure.',
+    answer: 'No. However, we are working on a feature to allow you to share your flashcards with others.',
   },
 ]
 
