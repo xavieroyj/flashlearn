@@ -1,8 +1,6 @@
-import { getUserCollections } from "../actions/collection";
 import { getRecentActivity, getPinnedCollections } from "../actions/dashboard";
 import { getStats } from "../actions/stats";
 import CollectionCard from "./collection/components/CollectionCard";
-import CreateCollectionDialog from "./collection/components/CreateCollectionDialog";
 import RecentActivity from "./components/RecentActivity";
 import DashboardStats from "./components/DashboardStats";
 import SkeletonStats from "./components/SkeletonStats";
@@ -55,7 +53,7 @@ async function RecentActivitySection() {
 
 export default function Dashboard() {
     return (
-        <div className="p-6 space-y-6">
+        <div className="space-y-6">
             <Suspense fallback={<SkeletonStats />}>
                 <StatsSection />
             </Suspense>

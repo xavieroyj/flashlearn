@@ -48,7 +48,7 @@
   .dark {
     /* Dark mode variants */
     --primary: 182 73% 71%;
-    --primary-foreground: 210 40% 98%;
+    --primary-foreground: 178.6 84.3% 10%;
 
     --background: 182 73% 5%;
     --foreground: 182 73% 95%;
@@ -74,6 +74,15 @@
     --border: 182 73% 20%;
     --input: 182 73% 20%;
     --ring: 182 73% 71%;
+
+    --sidebar-background: 182 73% 5%;
+    --sidebar-foreground: 168.4 83.8% 78.2%;
+    --sidebar-primary: 182 73% 71%;
+    --sidebar-primary-foreground: 178.6 84.3% 10%;
+    --sidebar-accent: 182 73% 20%;
+    --sidebar-accent-foreground: 168.4 83.8% 78.2%;
+    --sidebar-border: 182 73% 20%;
+    --sidebar-ring: 182 73% 71%;
   }
 }
 
