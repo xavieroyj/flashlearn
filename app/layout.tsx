@@ -10,6 +10,17 @@ export const metadata: Metadata = {
   description: "An AI powered flashcard app to aid your learning",
   appleWebApp: {
     title: "FlashLearn",
+  },
+  openGraph: {
+    title: "FlashLearn",
+    description: "An AI powered flashcard app to aid your learning",
+    images: [
+      {
+        url: "/default-opengraph.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
   }
 };  
 

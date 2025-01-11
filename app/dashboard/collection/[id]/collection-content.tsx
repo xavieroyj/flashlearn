@@ -93,7 +93,7 @@ export default function CollectionContent({ collection, quizzes, initialQuizHist
                 open={isCreateModalOpen}
                 onOpenChange={setIsCreateModalOpen}
                 onSuccess={() => {
-                    // TODO: Add revalidation here
+                    router.refresh();
                 }}
             />
         </div>
