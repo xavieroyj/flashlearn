@@ -10,6 +10,7 @@ import { deleteQuiz } from "@/app/actions/quiz";
 import CollectionHeader from "./components/CollectionHeader";
 import QuizCard from "./components/QuizCard";
 import CreateQuizModal from "./components/CreateQuizModal";
+import { useRouter } from "next/navigation";
 
 interface CollectionContentProps {
     collection: any;
@@ -22,10 +23,12 @@ export default function CollectionContent({ collection, quizzes, initialQuizHist
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [quizHistory] = useState(initialQuizHistory);
+    const router = useRouter();
 
     const handleDelete = async (quizId: number) => {
         try {
             await deleteQuiz(quizId);
+            router.refresh();
             toast.success("Quiz deleted successfully");
         } catch (error) {
             toast.error("Failed to delete quiz");
