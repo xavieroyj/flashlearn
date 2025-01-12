@@ -2,6 +2,7 @@ import * as motion from "motion/react-client";
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Stats from "./Stats";
+import Link from "next/link";
 
 export default function Hero() {
 	return (
@@ -37,19 +38,21 @@ export default function Hero() {
 
 							{/* CTA Buttons */}
 							<div className="flex flex-wrap gap-4">
-								<Button
-									size="lg"
-									className="bg-primary text-black px-8"
-								>
-									Get Started Free
-								</Button>
-								<Button
+								<Link href="/register">
+									<Button
+										size="lg"
+										className="bg-primary text-black px-8"
+									>
+										Get Started Free
+									</Button>
+								</Link>
+								{/* <Button
 									size="lg"
 									variant="outline"
 									className="border-muted-foreground/30 text-muted-foreground hover:bg-muted-foreground/10"
 								>
 									Watch Demo
-								</Button>
+								</Button> */}
 							</div>
 
 							{/* Stats */}
