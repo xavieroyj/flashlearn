@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   const firstFile = files[0].data;
 
   const result = await streamObject({
-    model: google("gemini-2.0-flash-exp"),
+    model: google("gemini-1.5-flash-latest"),
     messages: [
       {
         role: "system",
