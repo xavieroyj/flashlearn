@@ -96,10 +96,19 @@ export async function getCollection(id: number) {
     return prisma.collection.findFirst({
         where: {
             id,
-            userId: session.user.id
+            OR: [
+                { userId: session.user.id },
+                { isPublic: true }
+            ]
         },
         include: {
-            Quiz: true
+            Quiz: true,
+            user: {
+                select: {
+                    name: true,
+                    image: true
+                }
+            }
         }
     });
 }
@@ -189,6 +198,113 @@ export async function deleteQuiz(quizId: number) {
     revalidatePath(`/dashboard/collection/${quiz.collectionId}`);
 }
 
+export async function toggleCollectionVisibility(collectionId: number) {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    // Verify collection belongs to user
+    const collection = await prisma.collection.findFirst({
+        where: {
+            id: collectionId,
+            userId: session.user.id
+        }
+    });
+
+    if (!collection) {
+        throw new Error("Collection not found or access denied");
+    }
+
+    return prisma.collection.update({
+        where: { id: collectionId },
+        data: { isPublic: !collection.isPublic }
+    });
+}
+
+export async function getPublicCollections() {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    return prisma.collection.findMany({
+        where: {
+            isPublic: true,
+            NOT: {
+                userId: session.user.id // Exclude user's own collections
+            }
+        },
+        include: {
+            Quiz: true,
+            user: {
+                select: {
+                    name: true,
+                    image: true
+                }
+            }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        }
+    });
+}
+
+export async function cloneCollection(sourceCollectionId: number, name: string, description?: string) {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    // Get source collection
+    const sourceCollection = await prisma.collection.findFirst({
+        where: {
+            id: sourceCollectionId,
+            isPublic: true
+        },
+        include: {
+            Quiz: true
+        }
+    });
+
+    if (!sourceCollection) {
+        throw new Error("Collection not found or not public");
+    }
+
+    // Create new collection with copied quizzes
+    return prisma.$transaction(async (tx) => {
+        // Create new collection
+        const newCollection = await tx.collection.create({
+            data: {
+                name,
+                description,
+                userId: session.user.id
+            }
+        });
+
+        // Clone all quizzes
+        await tx.quiz.createMany({
+            data: sourceCollection.Quiz.map(quiz => ({
+                question: quiz.question,
+                options: quiz.options,
+                answer: quiz.answer,
+                collectionId: newCollection.id
+            }))
+        });
+
+        return newCollection;
+    });
+}
+
 export async function editQuiz(
     quizId: number,
     data: { question: string; options: string[]; answer: string }
@@ -228,4 +344,54 @@ export async function editQuiz(
     // Revalidate both dashboard and collection pages
     revalidatePath('/dashboard');
     revalidatePath(`/dashboard/collection/${quiz.collectionId}`);
+}
+
+export async function copyQuizToCollection(quizId: number, targetCollectionId: number) {
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
+    }
+
+    // Verify target collection belongs to user
+    const targetCollection = await prisma.collection.findFirst({
+        where: {
+            id: targetCollectionId,
+            userId: session.user.id
+        }
+    });
+
+    if (!targetCollection) {
+        throw new Error("Target collection not found or access denied");
+    }
+
+    // Get source quiz from a public collection
+    const sourceQuiz = await prisma.quiz.findFirst({
+        where: {
+            id: quizId,
+            collection: {
+                isPublic: true
+            }
+        }
+    });
+
+    if (!sourceQuiz) {
+        throw new Error("Quiz not found or not from a public collection");
+    }
+
+    // Create copy of quiz in target collection
+    await prisma.quiz.create({
+        data: {
+            question: sourceQuiz.question,
+            options: sourceQuiz.options,
+            answer: sourceQuiz.answer,
+            collectionId: targetCollectionId
+        }
+    });
+
+    // Revalidate pages
+    revalidatePath('/dashboard');
+    revalidatePath(`/dashboard/collection/${targetCollectionId}`);
 }

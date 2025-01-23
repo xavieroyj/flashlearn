@@ -12,7 +12,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Book, Home, History } from "lucide-react"
+import { Book, Home, History, Globe2 } from "lucide-react"
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import CreateQuizDialog from "@/app/dashboard/collection/components/CreateQuizDialog";
@@ -21,21 +21,26 @@ import { title } from "process";
 import Image from "next/image";
 
 const items = [
-	{
-		title: "Home",
-		path: "/dashboard",
-		icon: Home
-	},
-	{
-		title: "Collection",
-		path: "/dashboard/collection",
-		icon: Book
-	},
-	{
-		title: "History",
-		path: "/dashboard/history",
-		icon: History
-	},
+    {
+        title: "Home",
+        path: "/dashboard",
+        icon: Home
+    },
+    {
+        title: "Collection",
+        path: "/dashboard/collection",
+        icon: Book
+    },
+    {
+        title: "Explore",
+        path: "/dashboard/explore",
+        icon: Globe2
+    },
+    {
+        title: "History",
+        path: "/dashboard/history",
+        icon: History
+    },
 ];
 
 interface AppSidebarProps {

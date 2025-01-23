@@ -7,6 +7,7 @@ import QuizSection from "./quiz-section";
 import QuizHistory from './quiz-history';
 import { EditQuizModal } from "./edit-quiz-modal";
 import { deleteQuiz } from "@/app/actions/quiz";
+import { toggleCollectionVisibility } from "@/app/actions/collection";
 import CollectionHeader from "./components/CollectionHeader";
 import QuizCard from "./components/QuizCard";
 import CreateQuizModal from "./components/CreateQuizModal";
@@ -42,13 +43,27 @@ export default function CollectionContent({ collection, quizzes, initialQuizHist
         }
     };
 
+    const handleToggleVisibility = async () => {
+        try {
+            await toggleCollectionVisibility(collection.id);
+            router.refresh();
+            toast.success(
+                `Collection is now ${collection.isPublic ? 'private' : 'public'}`
+            );
+        } catch (error) {
+            toast.error("Failed to toggle collection visibility");
+        }
+    };
+
     return (
         <div className="space-y-8">
             <CollectionHeader
                 name={collection.name}
                 description={collection.description}
                 isPinned={collection.isPinned}
+                isPublic={collection.isPublic}
                 onAddQuestion={() => setIsCreateModalOpen(true)}
+                onToggleVisibility={handleToggleVisibility}
             />
 
             {quizzes.length > 0 && (
