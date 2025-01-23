@@ -23,11 +23,12 @@ type QuizProps = {
 
 const QuestionCard: React.FC<{
   question: Question;
+  questionIndex: number;
   selectedAnswer: string | null;
   onSelectAnswer: (answer: string) => void;
   isSubmitted: boolean;
   showCorrectAnswer: boolean;
-}> = ({ question, selectedAnswer, onSelectAnswer, showCorrectAnswer }) => {
+}> = ({ question, questionIndex, selectedAnswer, onSelectAnswer, isSubmitted, showCorrectAnswer }) => {
   const answerLabels = ["A", "B", "C", "D"];
 
   return (
@@ -52,6 +53,7 @@ const QuestionCard: React.FC<{
                   : ""
             }`}
             onClick={() => onSelectAnswer(answerLabels[index])}
+            data-testid={`question-${questionIndex}-answer-${answerLabels[index]}`}
           >
             <span className="text-lg font-medium mr-4 shrink-0">
               {answerLabels[index]}
@@ -81,7 +83,7 @@ export default function Quiz({
 }: QuizProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(
-    Array(questions.length).fill(null),
+    Array(questions.length).fill(null)
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [score, setScore] = useState<number | null>(null);
@@ -172,6 +174,7 @@ export default function Quiz({
                   <div className="space-y-8">
                     <QuestionCard
                       question={currentQuestion}
+                      questionIndex={currentQuestionIndex}
                       selectedAnswer={answers[currentQuestionIndex]}
                       onSelectAnswer={handleSelectAnswer}
                       isSubmitted={isSubmitted}
@@ -182,6 +185,7 @@ export default function Quiz({
                         onClick={handlePreviousQuestion}
                         disabled={currentQuestionIndex === 0}
                         variant="ghost"
+                        data-testid="prev-button"
                       >
                         <ChevronLeft className="mr-2 h-4 w-4" /> Previous
                       </Button>
@@ -192,6 +196,7 @@ export default function Quiz({
                         onClick={handleNextQuestion}
                         disabled={answers[currentQuestionIndex] === null}
                         variant="ghost"
+                        data-testid="next-button"
                       >
                         {currentQuestionIndex === questions.length - 1
                           ? "Submit"
@@ -214,12 +219,14 @@ export default function Quiz({
                         onClick={handleReset}
                         variant="outline"
                         className="bg-muted hover:bg-muted/80 w-full"
+                        data-testid="reset-button"
                       >
                         <RefreshCw className="mr-2 h-4 w-4" /> Reset Quiz
                       </Button>
                       <Button
                         onClick={clearPDF}
                         className="bg-primary hover:bg-primary/90 w-full"
+                        data-testid="return-button"
                       >
                         <FileText className="mr-2 h-4 w-4" /> Return to Collection
                       </Button>
