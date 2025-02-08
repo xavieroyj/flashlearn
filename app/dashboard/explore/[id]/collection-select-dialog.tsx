@@ -18,7 +18,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CollectionSelectDialogProps {
     onCollectionSelect: (collectionId: number) => void;
@@ -29,8 +29,17 @@ export default function CollectionSelectDialog({
     onCollectionSelect,
     onCancel,
 }: CollectionSelectDialogProps) {
-    const collections = await getUserCollections();
+    const [collections, setCollections] = useState<any[]>([]);
     const [selectedCollection, setSelectedCollection] = useState<string>();
+
+    useEffect(() => {
+        const loadCollections = async () => {
+            const userCollections = await getUserCollections();
+            setCollections(userCollections);
+        };
+        
+        loadCollections();
+    }, []);
 
     return (
         <DialogContent>
