@@ -17,7 +17,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import CreateQuizDialog from "@/app/dashboard/collection/components/CreateQuizDialog";
 import NavUser from "./nav-user";
-import { title } from "process";
 import Image from "next/image";
 
 const items = [
@@ -55,15 +54,13 @@ export function AppSidebar({ user }: AppSidebarProps) {
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
-						<SidebarMenuButton size="lg" asChild>
-							<a href="#">
-								<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-									<Image src="/icon.png" alt="FlashLearn" className="rounded-lg" width={32} height={32} />
-								</div>
-								<div className="grid flex-1 text-left text-sm leading-tight">
-									<span className="truncate font-semibold">FlashLearn</span>
-								</div>
-							</a>
+						<SidebarMenuButton size="lg">
+							<div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+								<Image src="/icon.png" alt="FlashLearn" className="rounded-lg" width={32} height={32} />
+							</div>
+							<div className="grid flex-1 text-left text-sm leading-tight">
+								<span className="truncate font-semibold">FlashLearn</span>
+							</div>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>

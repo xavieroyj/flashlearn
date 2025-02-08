@@ -1,6 +1,5 @@
 import { getRecentActivity, getPinnedCollections } from "../actions/dashboard";
 import { getStats } from "../actions/stats";
-import CollectionCard from "./collection/components/CollectionCard";
 import RecentActivity from "./components/RecentActivity";
 import DashboardStats from "./components/DashboardStats";
 import SkeletonStats from "./components/SkeletonStats";
@@ -9,6 +8,7 @@ import SkeletonActivity from "./components/SkeletonActivity";
 import { revalidatePath } from "next/cache";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Suspense } from "react";
+import CollectionCard from "@/components/CollectionCard";
 
 // Separate components for each section to use with Suspense
 async function StatsSection() {
@@ -18,6 +18,12 @@ async function StatsSection() {
 
 async function PinnedCollectionsSection() {
     const pinnedCollections = await getPinnedCollections();
+
+    async function handleAction() {
+        'use server';
+        revalidatePath('/dashboard');
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -28,11 +34,10 @@ async function PinnedCollectionsSection() {
                     {pinnedCollections.map((collection) => (
                         <CollectionCard
                             key={collection.id}
-                            onPinToggle={async () => {
-                                'use server';
-                                revalidatePath('/dashboard');
-                            }}
                             collection={collection}
+                            isOwner={true}
+                            inDashboard={true}
+                            onAction={handleAction}
                         />
                     ))}
                     {pinnedCollections.length === 0 && (

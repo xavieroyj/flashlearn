@@ -1,13 +1,13 @@
 import { getUserCollections } from "@/app/actions/collection";
 import { revalidatePath } from "next/cache";
-import CreateCollectionDialog from "@/app/dashboard/collection/components/CreateCollectionDialog";
-import CollectionCard from "@/app/dashboard/collection/components/CollectionCard";
+import CreateCollectionDialog from "./components/CreateCollectionDialog";
+import CollectionCard from "@/components/CollectionCard";
 
 export default async function CollectionPage() {
     const collections = await getUserCollections();
     const pinnedCollections = collections.filter(c => c.isPinned);
 
-    async function revalidate() {
+    async function handleAction() {
         'use server';
         revalidatePath('/dashboard/collection');
     }
@@ -27,7 +27,9 @@ export default async function CollectionPage() {
                             <CollectionCard 
                                 key={collection.id} 
                                 collection={collection} 
-                                onPinToggle={revalidate}
+                                isOwner={true}
+                                inDashboard={true}
+                                onAction={handleAction}
                             />
                         ))}
                     </div>
@@ -41,7 +43,9 @@ export default async function CollectionPage() {
                         <CollectionCard 
                             key={collection.id} 
                             collection={collection} 
-                            onPinToggle={revalidate}
+                            isOwner={true}
+                            inDashboard={true}
+                            onAction={handleAction}
                         />
                     ))}
                 </div>

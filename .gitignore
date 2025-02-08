@@ -40,3 +40,4 @@ next-env.d.ts
 
 # Remove cursor rules
 .cursorrules
+/memory-bank
