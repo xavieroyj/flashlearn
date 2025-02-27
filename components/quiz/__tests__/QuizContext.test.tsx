@@ -137,7 +137,7 @@ describe('QuizContext', () => {
       result.current.finishQuiz()
     })
 
-    expect(onComplete).toHaveBeenCalledWith(2, ['B', 'B'])
+    expect(onComplete).toHaveBeenCalledWith(2, { 0: 'B', 1: 'B' })
   })
 
   it('calls onReset callback when quiz is reset', () => {
@@ -156,4 +156,4 @@ describe('QuizContext', () => {
 
     expect(onReset).toHaveBeenCalled()
   })
-})
+})

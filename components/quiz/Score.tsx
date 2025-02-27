@@ -30,12 +30,15 @@ export function Score({ score, total, onTryAgain, testId = "quiz-score" }: Score
         </p>
       </div>
 
-      <Button 
-        onClick={onTryAgain}
-        data-testid={`${testId}-try-again`}
-      >
-        Try Again
-      </Button>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <Button 
+          onClick={onTryAgain}
+          data-testid={`${testId}-try-again`}
+          variant="outline"
+        >
+          Try Again
+        </Button>
+      </div>
     </div>
   )
-}
+}

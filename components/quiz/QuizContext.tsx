@@ -26,7 +26,7 @@ const QuizContext = createContext<QuizContextType | null>(null)
 interface QuizProviderProps {
   children: ReactNode
   questions: Question[]
-  onComplete?: (score: number, answers: string[]) => void
+  onComplete?: (score: number, answers: Record<number, string>) => void
   onReset?: () => void
 }
 
@@ -68,7 +68,15 @@ export function QuizProvider({ children, questions, onComplete, onReset }: QuizP
   const finishQuiz = () => {
     const finalScore = calculateScore()
     setIsComplete(true)
-    onComplete?.(finalScore, userAnswers)
+    
+    if (onComplete) {
+      const answersRecord = userAnswers.reduce((acc, answer, index) => {
+        acc[index] = answer
+        return acc
+      }, {} as Record<number, string>)
+      
+      onComplete(finalScore, answersRecord)
+    }
   }
 
   const resetQuiz = () => {

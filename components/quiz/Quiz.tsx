@@ -12,6 +12,7 @@ interface QuizProps {
   questions: Question[]
   clearPDF?: () => void
   testId?: string
+  onComplete?: (score: number, answers: Record<number, string>) => void
 }
 
 function QuizContent({ title, testId = "quiz" }: { title: string, testId?: string }) {
@@ -79,11 +80,12 @@ function QuizContent({ title, testId = "quiz" }: { title: string, testId?: strin
   )
 }
 
-export function Quiz({ title, questions, clearPDF, testId = "quiz" }: QuizProps) {
+export function Quiz({ title, questions, clearPDF, testId = "quiz", onComplete }: QuizProps) {
   return (
     <QuizProvider
       questions={questions}
       onReset={clearPDF}
+      onComplete={onComplete}
     >
       <QuizContent title={title} testId={testId} />
     </QuizProvider>

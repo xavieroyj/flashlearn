@@ -1,6 +1,6 @@
 "use client";
 
-import Quiz from "@/components/quiz";
+import { Quiz } from "@/components/quiz/Quiz";
 import { Question } from "@/lib/schemas";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -60,9 +60,10 @@ export default function QuizClient({ questions, title }: QuizClientProps) {
 
   return (
     <Quiz 
-      questions={questions}
       title={title}
+      questions={questions}
       clearPDF={() => router.back()}
+      testId="quiz-component"
       onComplete={handleComplete}
     />
   );
