@@ -104,4 +104,4 @@ export function AppSidebar({ user }: AppSidebarProps) {
 			</SidebarFooter>
 		</Sidebar>
 	)
-}
+}

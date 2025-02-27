@@ -7,7 +7,7 @@ import SkeletonCollections from "./components/SkeletonCollections";
 import SkeletonActivity from "./components/SkeletonActivity";
 import { revalidatePath } from "next/cache";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Suspense } from "react";
+import { Suspense, ErrorBoundary } from "react";
 import CollectionCard from "@/components/CollectionCard";
 
 // Separate components for each section to use with Suspense

@@ -1,3 +1,5 @@
+'use client'
+
 import { Question } from "@/lib/schemas"
 import { QuizProgress } from "./QuizProgress"
 import { QuizQuestion } from "./QuizQuestion"
@@ -86,4 +88,4 @@ export function Quiz({ title, questions, clearPDF, testId = "quiz" }: QuizProps)
       <QuizContent title={title} testId={testId} />
     </QuizProvider>
   )
-}
+}

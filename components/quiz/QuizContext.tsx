@@ -1,3 +1,5 @@
+'use client'
+
 import { Question } from "@/lib/schemas"
 import { createContext, useContext, useState, ReactNode } from "react"
 
@@ -107,4 +109,4 @@ export function useQuiz() {
     throw new Error('useQuiz must be used within a QuizProvider')
   }
   return context
-}
+}

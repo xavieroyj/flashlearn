@@ -2,15 +2,17 @@ import { betterFetch } from "@better-fetch/fetch";
 import type { Session } from "better-auth/types";
 import { NextResponse, type NextRequest } from "next/server";
  
+// This function can be marked with `cache: 'force-cache'`, `cache: 'no-store'` or `revalidate: number`
 export default async function authMiddleware(request: NextRequest) {
 	const { data: session } = await betterFetch<Session>(
 		"/api/auth/get-session",
 		{
 			baseURL: request.nextUrl.origin,
 			headers: {
-				//get the cookie from the request
 				cookie: request.headers.get("cookie") || "",
 			},
+			// Prevent caching the auth request since session status can change
+			cache: 'no-store',
 		},
 	);
  
@@ -32,4 +34,4 @@ export default async function authMiddleware(request: NextRequest) {
  
 export const config = {
 	matcher: ["/login", "/register", "/dashboard/:path*"],
-};
+};

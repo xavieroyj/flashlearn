@@ -23,7 +23,7 @@ export default function QuizReview({ questions, userAnswers }: QuizReviewProps) 
                 const label = String.fromCharCode(65 + oIndex) // Convert 0-3 to A-D
                 const isSelected = userAnswers[qIndex] === label
                 const isCorrect = question.answer === label
-                
+
                 return (
                   <div
                     key={oIndex}
@@ -35,7 +35,7 @@ export default function QuizReview({ questions, userAnswers }: QuizReviewProps) 
                       !isSelected && "border border-border"
                     )}
                   >
-                    <span 
+                    <span
                       className="text-lg font-medium mr-4 w-6"
                       data-testid={`answer-label-${label}`}
                     >

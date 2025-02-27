@@ -2,6 +2,12 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Dashboard | FlashLearn",
+  description: "Manage your flashcards and learning progress",
+}
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const session = await auth.api.getSession({
@@ -22,4 +28,4 @@ export default async function Layout({ children }: { children: React.ReactNode }
       </main>
     </SidebarProvider>
   )
-}
+}
